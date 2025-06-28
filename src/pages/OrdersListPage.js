@@ -5,25 +5,25 @@ const OrdersListPage = () => {
   const [orders, setOrders] = useState([]);
   const username = localStorage.getItem("username") || "";
 
-  const fetchOrders = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/orders", {
-        params: { customer_name: username },
-      });
-      setOrders(res.data);
-    } catch (err) {
-      console.error("Error fetching orders:", err);
-      alert("Failed to fetch orders: " + err.message);
-    }
-  };
-
   useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/orders", {
+          params: { customer_name: username },
+        });
+        setOrders(res.data);
+      } catch (err) {
+        console.error("Error fetching orders:", err);
+        alert("Failed to fetch orders: " + err.message);
+      }
+    };
+
     if (username) {
       fetchOrders();
     } else {
       alert("Please log in to view your orders.");
     }
-  }, [fetchOrders, username]);
+  }, [username]); // ✅ Only include username here
 
   return React.createElement(
     "div",
