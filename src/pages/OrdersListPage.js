@@ -23,84 +23,71 @@ const OrdersListPage = () => {
     } else {
       alert("Please log in to view your orders.");
     }
-  }, [username]); // ✅ Only include username here
+  }, [username]);
 
-  return React.createElement(
-    "div",
-    null,
-    React.createElement(
-      "style",
-      null,
-      `
-        .page-content {
-          padding: 20px;
-          max-width: 1200px;
-          margin: 0 auto;
-          font-family: Arial, sans-serif;
-        }
-        h2 {
-          color: #333;
-        }
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-top: 20px;
-        }
-        th, td {
-          border: 1px solid #ddd;
-          padding: 8px;
-          text-align: left;
-        }
-        th {
-          background-color: #f4f4f4;
-        }
-      `
-    ),
-    React.createElement(
-      "div",
-      { className: "page-content" },
-      React.createElement("h2", null, "📋 Your Orders"),
-      orders.length === 0
-        ? React.createElement("p", null, "No orders placed yet.")
-        : React.createElement(
-            "table",
-            null,
-            React.createElement(
-              "thead",
-              null,
-              React.createElement(
-                "tr",
-                null,
-                React.createElement("th", null, "ID"),
-                React.createElement("th", null, "Customer"),
-                React.createElement("th", null, "Product"),
-                React.createElement("th", null, "Qty"),
-                React.createElement("th", null, "Price"),
-                React.createElement("th", null, "Txn ID"),
-                React.createElement("th", null, "Payment"),
-                React.createElement("th", null, "Status")
-              )
-            ),
-            React.createElement(
-              "tbody",
-              null,
-              orders.map((order) =>
-                React.createElement(
-                  "tr",
-                  { key: order.id },
-                  React.createElement("td", null, order.id),
-                  React.createElement("td", null, order.customer_name),
-                  React.createElement("td", null, order.product_name),
-                  React.createElement("td", null, order.quantity),
-                  React.createElement("td", null, `₹${order.price}`),
-                  React.createElement("td", null, order.transaction_id),
-                  React.createElement("td", null, order.payment_method),
-                  React.createElement("td", null, order.status)
-                )
-              )
-            )
-          )
-    )
+  return (
+    <div className="page-content">
+      <style>
+        {`
+          .page-content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+          }
+          h2 {
+            color: #333;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+          }
+          th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+          }
+          th {
+            background-color: #f4f4f4;
+          }
+        `}
+      </style>
+
+      <h2>📋 Your Orders</h2>
+      {orders.length === 0 ? (
+        <p>No orders placed yet.</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Txn ID</th>
+              <th>Payment</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>{order.customer_name}</td>
+                <td>{order.product_name}</td>
+                <td>{order.quantity}</td>
+                <td>₹{order.price}</td>
+                <td>{order.transaction_id}</td>
+                <td>{order.payment_method}</td>
+                <td>{order.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 };
 
